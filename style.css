@@ -11,6 +11,15 @@ body {
   align-items: center;
 }
 
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+p,
+li {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+}
+
 #game-board {
   width: 200vmin;
   height: 100vmin;
@@ -57,7 +66,66 @@ body {
   height: auto;
 }
 
-.game-over {
+.game-over h1,
+p,
+button {
+  margin: 5px;
+}
+
+.boost-left {
+  position: absolute;
+  top: 93vh;
+  left: 10vw;
+  transform: translate(-50%, -50%);
+  background-color: deepskyblue;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.snake-lenght {
+  position: absolute;
+  top: 93vh;
+  left: 88vw;
+  transform: translate(-50%, -50%);
+  background-color: deepskyblue;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#info-btn {
+  position: absolute;
+  top: 7vh;
+  left: 9vw;
+  transform: translate(-50%, -50%);
+  background-color: deepskyblue;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px grey;
+}
+
+#level-btn {
+  position: absolute;
+  top: 7vh;
+  left: 91vw;
+  transform: translate(-50%, -50%);
+  background-color: deepskyblue;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px grey;
+}
+
+.info-page,
+.pause-page,
+.game-over,
+.level-page {
   position: absolute;
   top: 50vh;
   left: 50vw;
@@ -67,12 +135,17 @@ body {
   padding: 10px;
   border: 2px solid black;
   border-radius: 5px;
+  box-shadow: 5px 5px 5px grey;
 }
 
-.game-over h1,
-p,
-button {
-  margin: 5px;
+.info-page ul {
+  text-align: start;
+  list-style-type: none;
+}
+
+.info-page ul li,
+.game-over p {
+  margin: 10px;
 }
 
 /* .snake {

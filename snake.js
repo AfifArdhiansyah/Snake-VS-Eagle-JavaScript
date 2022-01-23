@@ -1,9 +1,9 @@
 import { getInput, getKeyDirection } from "./input.js";
 import { getApplePos, newApple } from "./apple.js";
-import { WIDTH, HEIGHT, getRun, setRun } from "./game.js";
+import { WIDTH, HEIGHT, getRun, setRun, setCrashStatus } from "./game.js";
 import { getEaglePos } from "./eagle.js";
 
-export const GAME_SPEED = 14;
+let GAME_SPEED = 14;
 let eatApple = false;
 let score = 0;
 
@@ -85,14 +85,14 @@ export function wallCheck() {
     console.log("crash");
     console.log(snakeBody[0].x);
     console.log(snakeBody[0].y);
-    if (getRun() == true) setRun(false);
+    if (getRun() == true) setCrashStatus(true);
   }
 }
 
 export function hitSelf() {
   for (let i = 1; i < snakeBody.length; i++) {
     if (snakeBody[0].x === snakeBody[i].x && snakeBody[0].y === snakeBody[i].y) {
-      if (getRun() == true) setRun(false);
+      if (getRun() == true) setCrashStatus(true);
     }
   }
 }
@@ -100,18 +100,23 @@ export function hitSelf() {
 export function hitByEagle() {
   snakeBody.forEach((element) => {
     if (element.x === getEaglePos().x && element.y === getEaglePos().y) {
-      setRun(false);
+      setCrashStatus(true);
     }
   });
 }
 
 export function drawScore(gameBoard) {
   const scoreTitle = document.createElement("div");
-  scoreTitle.style.gridColumnStart = 26;
-  scoreTitle.style.gridRowStart = 25;
   scoreTitle.textContent = `Score = ${score}`;
   scoreTitle.classList.add("score");
   gameBoard.appendChild(scoreTitle);
+}
+
+export function drawSnakeLenght(gameBoard) {
+  const snakeLenght = document.createElement("div");
+  snakeLenght.textContent = `Snake Length = ${snakeBody.length}`;
+  snakeLenght.classList.add("snake-lenght");
+  gameBoard.appendChild(snakeLenght);
 }
 
 export function getScore() {
@@ -127,4 +132,12 @@ export function reset() {
     { x: 7, y: 11 },
     { x: 6, y: 11 },
   ];
+}
+
+export function setGameSpeed(speed) {
+  GAME_SPEED = speed;
+}
+
+export function getGameSpeed() {
+  return GAME_SPEED;
 }
