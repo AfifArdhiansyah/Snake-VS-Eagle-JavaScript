@@ -4,13 +4,25 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snake VS Eagle</title>
     <link rel="stylesheet" href="style.css" />
+    <title>Snake Menu</title>
   </head>
   <body>
-    <div id="game-board"></div>
-    <input id="info-btn" type="button" value="Info" onclick="drawInfoPage();" />
-    <input id="level-btn" type="button" value="Level" onclick="drawLevelPage();" />
-    <script src="game.js" defer type="module"></script>
+    <div id="menu-page">
+      <div class="title">Snake VS Eagle</div>
+      <div class="menu-btn">
+        <!-- <button class="menu-play">
+          <a href="./game.html">Play </a>
+        </button> -->
+        <img id="play-btn" src="img/play.png" alt="" />
+        <input id="menu-char" type="button" value="Choose Characters" />
+      </div>
+      <div id="menu-highscore">Highscore : 400 point</div>
+      <img id="eagle-menu" src="img/eagleMenu.gif" alt="" />
+      <img id="menu-snake" alt="" />
+      <audio id="theme-music" autoplay loop><source src="sound/theme.wav" type="audio/wav" /></audio>
+      <img id="audio-btn" alt="" />
+    </div>
+    <script src="./index.js"></script>
   </body>
 </html>

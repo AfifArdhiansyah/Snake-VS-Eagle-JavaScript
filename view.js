@@ -2,6 +2,10 @@ import { getScore, setGameSpeed } from "./snake.js";
 import { getRun, setRun, reset, play, getCrashStatus } from "./game.js";
 import { getPauseStatus, setPauseStatus } from "./input.js";
 
+let highScore = sessionStorage.getItem("high-score");
+if (!highScore) highScore = 0;
+highScore = parseInt(highScore, 10);
+
 //draw game over
 export function gameOver(gameBoard) {
   if (getCrashStatus()) {
@@ -18,6 +22,14 @@ export function gameOver(gameBoard) {
     pGO2.textContent = `Your Score = ${getScore()}`;
     gameOverView.appendChild(pGO2);
 
+    const pGO3 = document.createElement("p");
+    if (getScore() > highScore) {
+      highScore = getScore();
+      sessionStorage.setItem("high-score", highScore);
+    }
+    pGO3.textContent = `High Score = ${highScore}`;
+    gameOverView.appendChild(pGO3);
+
     const pGO = document.createElement("p");
     pGO.textContent = "Klik OKAY to Play Again";
     gameOverView.appendChild(pGO);
@@ -26,16 +38,24 @@ export function gameOver(gameBoard) {
     buttonGO.textContent = "OKAY";
     buttonGO.onclick = () => {
       reset();
-      setRun(true);
       play();
     };
     gameOverView.appendChild(buttonGO);
+
+    const buttonMenuGO = document.createElement("button");
+    buttonMenuGO.textContent = "Menu";
+    buttonMenuGO.onclick = () => {
+      reset();
+      window.history.back(-1);
+      window.location.replace("./index.html");
+    };
+    gameOverView.appendChild(buttonMenuGO);
   }
 }
 
 //check pause
 export function pauseCheck(gameBoard) {
-  if (getPauseStatus() && getRun() == true) {
+  if (getPauseStatus() && !getCrashStatus()) {
     setRun(false);
     drawPausePage(gameBoard);
   }
@@ -96,16 +116,25 @@ export function drawPausePage(gameBoard) {
   gameBoard.appendChild(pausePage);
 
   const pauseText = document.createElement("div");
-  pauseText.textContent = "Game Paused, click for play again";
+  pauseText.textContent = "Game Paused";
   pausePage.appendChild(pauseText);
 
   const pausePlayBtn = document.createElement("button");
-  pausePlayBtn.textContent = "Play";
+  pausePlayBtn.textContent = "Resume";
   pausePlayBtn.onclick = () => {
     play();
     setPauseStatus(false);
   };
   pausePage.appendChild(pausePlayBtn);
+
+  const pauseMenuBtn = document.createElement("button");
+  pauseMenuBtn.textContent = "Menu";
+  pauseMenuBtn.onclick = () => {
+    reset();
+    window.history.back(-1);
+    window.location.replace("./index.html");
+  };
+  pausePage.appendChild(pauseMenuBtn);
 }
 
 //level page
@@ -125,8 +154,8 @@ export function levelPage(gameBoard) {
   level1.onclick = () => {
     setGameSpeed(10);
     if (!getCrashStatus()) {
-      play();
       reset();
+      play();
     }
     levelPageView.remove();
   };
@@ -137,8 +166,8 @@ export function levelPage(gameBoard) {
   level2.onclick = () => {
     setGameSpeed(14);
     if (!getCrashStatus()) {
-      play();
       reset();
+      play();
     }
     levelPageView.remove();
   };
@@ -149,8 +178,8 @@ export function levelPage(gameBoard) {
   level3.onclick = () => {
     setGameSpeed(18);
     if (!getCrashStatus()) {
-      play();
       reset();
+      play();
     }
     levelPageView.remove();
   };

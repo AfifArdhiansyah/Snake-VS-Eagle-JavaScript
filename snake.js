@@ -6,6 +6,13 @@ import { getEaglePos } from "./eagle.js";
 let GAME_SPEED = 14;
 let eatApple = false;
 let score = 0;
+let chooseChar = sessionStorage.getItem("char-select");
+console.log(sessionStorage.getItem("char-select"));
+chooseChar = parseInt(chooseChar, 10);
+if (isNaN(chooseChar)) {
+  chooseChar = 1;
+}
+console.log(chooseChar);
 
 let snakeBody = [
   { x: 8, y: 11 },
@@ -24,30 +31,82 @@ export function update() {
   snakeBody[0].y += input.y;
 }
 
-export function draw(gameBoard) {
-  // snakeBody.forEach((element) => {
-  //   const snakeElement = document.createElement("div");
-  //   snakeElement.style.gridColumnStart = element.x;
-  //   snakeElement.style.gridRowStart = element.y;
-  //   snakeElement.classList.add("snake");
-  //   gameBoard.appendChild(snakeElement);
-  // });
+const menuChar = document.getElementById("menu-char");
+if (menuChar) {
+  document.getElementById("menu-char").onclick = () => {
+    console.log("hwlloq");
+    setCharacter(1);
+  };
+}
 
+export function draw(gameBoard) {
   const snakeHead = document.createElement("img");
   snakeHead.style.gridColumnStart = snakeBody[0].x;
   snakeHead.style.gridRowStart = snakeBody[0].y;
   switch (getKeyDirection()) {
     case "U":
-      snakeHead.src = "img/greenSnake/headU.png";
+      switch (chooseChar) {
+        case 1:
+          snakeHead.src = "img/greenSnake/headU.png";
+          break;
+        case 2:
+          snakeHead.src = "img/redSnake/headRedU.png";
+          break;
+        case 3:
+          snakeHead.src = "img/yellowSnake/headYellowU.png";
+          break;
+        case 4:
+          snakeHead.src = "img/blueSnake/headBlueU.png";
+          break;
+      }
       break;
     case "D":
-      snakeHead.src = "img/greenSnake/headD.png";
+      switch (chooseChar) {
+        case 1:
+          snakeHead.src = "img/greenSnake/headD.png";
+          break;
+        case 2:
+          snakeHead.src = "img/redSnake/headRedD.png";
+          break;
+        case 3:
+          snakeHead.src = "img/yellowSnake/headYellowD.png";
+          break;
+        case 4:
+          snakeHead.src = "img/blueSnake/headBlueD.png";
+          break;
+      }
       break;
     case "R":
-      snakeHead.src = "img/greenSnake/headR.png";
+      switch (chooseChar) {
+        case 1:
+          snakeHead.src = "img/greenSnake/headR.png";
+          break;
+        case 2:
+          snakeHead.src = "img/redSnake/headRedR.png";
+          break;
+        case 3:
+          snakeHead.src = "img/yellowSnake/headYellowR.png";
+          break;
+        case 4:
+          snakeHead.src = "img/blueSnake/headBlueR.png";
+          break;
+      }
       break;
     case "L":
-      snakeHead.src = "img/greenSnake/headL.png";
+      switch (chooseChar) {
+        case 1:
+          snakeHead.src = "img/greenSnake/headL.png";
+          break;
+        case 2:
+          snakeHead.src = "img/redSnake/headRedL.png";
+          break;
+        case 3:
+          snakeHead.src = "img/yellowSnake/headYellowL.png";
+          break;
+        case 4:
+          snakeHead.src = "img/blueSnake/headBlueL.png";
+          break;
+      }
       break;
   }
   snakeHead.classList.add("snake-head");
@@ -57,7 +116,20 @@ export function draw(gameBoard) {
     const snakeElement = document.createElement("img");
     snakeElement.style.gridColumnStart = snakeBody[i].x;
     snakeElement.style.gridRowStart = snakeBody[i].y;
-    snakeElement.src = "img/greenSnake/body.png";
+    switch (chooseChar) {
+      case 1:
+        snakeElement.src = "img/greenSnake/body.png";
+        break;
+      case 2:
+        snakeElement.src = "img/redSnake/bodyRed.png";
+        break;
+      case 3:
+        snakeElement.src = "img/yellowSnake/bodyYellow.png";
+        break;
+      case 4:
+        snakeElement.src = "img/blueSnake/bodyBlue.png";
+        break;
+    }
     snakeElement.classList.add("snake-body");
     gameBoard.appendChild(snakeElement);
   }
@@ -85,7 +157,7 @@ export function wallCheck() {
     console.log("crash");
     console.log(snakeBody[0].x);
     console.log(snakeBody[0].y);
-    if (getRun() == true) setCrashStatus(true);
+    setCrashStatus(true);
   }
 }
 
@@ -140,4 +212,8 @@ export function setGameSpeed(speed) {
 
 export function getGameSpeed() {
   return GAME_SPEED;
+}
+
+export function setCharacter(choose) {
+  chooseChar = choose;
 }

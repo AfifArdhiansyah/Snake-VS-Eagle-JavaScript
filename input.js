@@ -1,3 +1,5 @@
+import { getCrashStatus } from "./game.js";
+
 let direction = { x: 1, y: 0 };
 
 let keyDirection = "R";
@@ -45,7 +47,7 @@ document.body.onkeyup = function (e) {
 
 document.body.onkeydown = function (e) {
   if (e.keyCode == 80) {
-    if (pause == false) {
+    if (pause == false && !getCrashStatus()) {
       pause = true;
     } else pause = false;
   }
@@ -83,4 +85,5 @@ export function reset() {
   keyDirection = "R";
   boost = false;
   boostLeft = 5;
+  pause = false;
 }
